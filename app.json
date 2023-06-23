@@ -1,7 +1,8 @@
 {
   "expo": {
-    "name": "bookapp",
-    "slug": "bookapp",
+    "name": "Book Recommender",
+    "slug": "book-recommender",
+    "description": "An app for finding book recommendations based off the books that you have read.",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
