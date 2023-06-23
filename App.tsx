@@ -1,5 +1,5 @@
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text, View, Image } from 'react-native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { NavigationContainer } from '@react-navigation/native';
 import {FontAwesome}from '@expo/vector-icons/';
@@ -9,12 +9,39 @@ import LibraryPage from './pages/Library/Library';
 import AddBookPage from './pages/AddBook/AddBook';
 import { BookProps } from './components/Book/Book';
 import { useEffect, useState } from 'react';
-import { Button } from '@rneui/base';
+import { Button, Icon } from '@rneui/base';
 import { IconButton } from '@react-native-material/core';
 import InfoDialog from './components/InfoDialog/InfoDialog';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const Tab = createBottomTabNavigator();
+
+function LogoTitle(props : any)
+{
+
+  const styles = StyleSheet.create({
+    container:
+    {
+      backgroundColor: 'blue',
+      width: undefined,
+      flex: 1,
+      display: 'flex',
+      flexDirection: 'row',
+      alignItems: 'center'
+      
+      
+    }
+  });
+  return (
+    <View style={styles.container}>
+      <Image
+        style={{ width: 35, height: 35 }}
+        source={require('./assets/favicon.png')}
+      />
+      <Text>{props.title}</Text>
+    </View>
+  );
+}
 
 
 export default function App() {
@@ -118,6 +145,8 @@ export default function App() {
     
     
   }
+
+
   return (
     <SafeAreaProvider>
       <InfoDialog isVisible={isHelpDialogVisible} SetIsVisible={updateHelpDialogVisibilty}></InfoDialog>
@@ -171,6 +200,16 @@ export default function App() {
             headerRight: () => (
               <IconButton onPress={() => updateHelpDialogVisibilty(true)} icon={props => <FontAwesome name='question-circle-o' size={25} color={"black"}/>}/>
             ),
+            headerLeft: () => (
+              <Image
+              style={{ width: 35, height: 35, marginLeft: 10 }}
+              source={require('./assets/favicon.png')}
+              />
+            ),
+
+
+
+
             headerTitleAlign: 'center'
           })}
           initialRouteName="Add Books"

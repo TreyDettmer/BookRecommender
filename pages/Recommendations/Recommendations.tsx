@@ -64,7 +64,6 @@ const RecommendationsPage : any = ({getMySubjects, getMyLibrary,updateMyLibrary}
             let copyOfExistingRecommendationBase = JSON.parse(JSON.stringify(existingRecommendationBase));
             let existingRecommendationBaseKeys = Object.keys(existingRecommendationBase);
             let copyOfRecommendedBooks : BookProps[] = JSON.parse(JSON.stringify(recommendedBooks));
-            //console.warn(copyOfExistingRecommendationBase);
             for (let i = myLibrary.length - 1; i >= 0; i--)
             {
               let libraryBook = myLibrary[i];
@@ -81,25 +80,17 @@ const RecommendationsPage : any = ({getMySubjects, getMyLibrary,updateMyLibrary}
                 }
               }
             }
-            //console.warn(existingRecommendationBaseKeys);
             // remove recommendations based on books which have been removed from our library since last recommendation query
             for (let i = existingRecommendationBaseKeys.length - 1; i >= 0; i--)
             {
               let recommendedBooksToRemove : BookProps[] = copyOfExistingRecommendationBase[existingRecommendationBaseKeys[i]];
-              //console.warn(`Removing books recommended from: ${existingRecommendationBaseKeys[i]}`);
               for (let j = recommendedBooksToRemove.length - 1; j >= 0; j--)
               {
                 let indexOfBookToRemove = copyOfRecommendedBooks.findIndex((book : BookProps) => book.workKey == recommendedBooksToRemove[j].workKey);
 
                 if (indexOfBookToRemove != -1)
                 {
-                  //console.warn(`removing book: ${recommendedBooksToRemove[j].title} at index ${indexOfBookToRemove}`);
                   copyOfRecommendedBooks.splice(indexOfBookToRemove,1);
-                  //console.warn(copyOfRecommendedBooks);
-                }
-                else
-                {
-                  //console.warn(`Cant remove ${recommendedBooksToRemove[j].title} because index is -1`);
                 }
               }
 
@@ -107,8 +98,6 @@ const RecommendationsPage : any = ({getMySubjects, getMyLibrary,updateMyLibrary}
               
               delete copyOfExistingRecommendationBase[existingRecommendationBaseKeys[i]];
             }
-            //console.warn("After removal");
-            //console.warn(copyOfRecommendedBooks);
 
 
             // array of subjects associated with each new book
@@ -126,9 +115,6 @@ const RecommendationsPage : any = ({getMySubjects, getMyLibrary,updateMyLibrary}
               let recommendationsForNewBooks : BookProps[][] = await FetchBooksByOtherBooksSubjects(subjects);
               if (recommendationsForNewBooks.length != myLibrary.length)
               {
-                // console.warn(recommendationsForNewBooks);
-                // console.warn(myLibrary);
-                // console.warn("lengths are different");
                 setIsSearching(false);
                 return;
               }
